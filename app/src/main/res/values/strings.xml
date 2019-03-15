@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Teacher Portal</string>
+    <string name="login_red"><u>Login</u></string>
+    <string name="register_red"><u>Register</u></string>
+</resources>
