@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 map.put("fullName",fNameString);
                                 map.put("userName",uNameString);
                                 map.put("isTeacher",true);
-                                FirebaseDatabase.getInstance().getReference().child("Users").child(uid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                FirebaseDatabase.getInstance().getReference().child("Users").child("Teachers").child(uid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()) {
