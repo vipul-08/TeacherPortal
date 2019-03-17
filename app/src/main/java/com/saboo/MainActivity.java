@@ -1,24 +1,53 @@
 package com.saboo;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    TextView mainTest;
+    BottomNavigationView bottomnav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-        mainTest = findViewById(R.id.mainTest);
+        bottomnav = findViewById(R.id.bottom_navigation);
+        bottomnav.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new FragmentDoubt()).commit();
 
-        mainTest.setText(mAuth.getCurrentUser().getUid()+"\n"+mAuth.getCurrentUser().getEmail());
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+
+                    switch(item.getItemId()) {
+                        case R.id.nav_doubt:
+                            selectedFragment = new FragmentDoubt();
+                            break;
+                        case R.id.nav_topic:
+                            selectedFragment = new FragmentTopic();
+                            break;
+                        case R.id.nav_profile:
+                            selectedFragment = new FragmentProfile();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
 }
